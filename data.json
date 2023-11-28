@@ -1,0 +1,85 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "username": "thisusernameistaken",
+        "email" : "timo.goedertier@gmail.com",
+        "password" : "TryMe",
+        "lists": [
+          {
+            "list_id": 10,
+            "list_name": "Work",
+            "items": [
+              {
+                "item_id": 100,
+                "item_text": "Complete project report",
+                "completed": false
+              },
+              {
+                "item_id": 101,
+                "item_text": "Send email to team",
+                "completed": true
+              }
+            ]
+          },
+          {
+            "list_id": 11,
+            "list_name": "Personal",
+            "items": [
+              {
+                "item_id": 110,
+                "item_text": "Buy groceries",
+                "completed": false
+              },
+              {
+                "item_id": 111,
+                "item_text": "Go to the gym",
+                "completed": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "username": "isthisusernametaken",
+        "email" : "sad.life@bluewin.ch",
+        "password": "NameMe",
+        "lists": [
+            {
+              "list_id": 20,
+              "list_name": "Work",
+              "items": [
+                {
+                  "item_id": 200,
+                  "item_text": "Complete project report",
+                  "completed": false
+                },
+                {
+                  "item_id": 201,
+                  "item_text": "Send email to team",
+                  "completed": true
+                }
+              ]
+            },
+            {
+              "list_id": 21,
+              "list_name": "Personal",
+              "items": [
+                {
+                  "item_id": 210,
+                  "item_text": "Buy groceries",
+                  "completed": false
+                },
+                {
+                  "item_id": 211,
+                  "item_text": "Go to the gym",
+                  "completed": false
+                }
+              ]
+            }
+          ]
+      }
+    ]
+  }
+  

@@ -1,38 +1,119 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>LB294-SPA</title>
-        <link rel="stylesheet" href="styles.css">
-        <script src="scripts.js"></script>
-    </head>
+  <div class="overlay" id="overlay"></div>
+  <head>
+    <title>LB294-SPA</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="scripts.js"></script>
+  </head>
 
-    <body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="#intro">Intro</a></li>
-                    <li><a href="#todocollection">To Do Collection</a></li>
-                    <li><a href="#about">about</a></li>
-                </ul>
-            </nav>
-        </header>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#intro">Intro</a></li>
+          <li><a href="#todocollection">To Do Collection</a></li>
+          <li><a href="#about">about</a></li>
+        </ul>
+        <button id="loginOpener" class="circular-button">Login</button>
+      </nav>
+    </header>
 
-        <main>
-            <section id="intro">
-                <h2 data-animate="true" >Intro</h2>
-            </section>
-        
-            <section id="todocollection">
-                <h2 data-animate="true">To Do Collection</h2>
-            </section>
-        
-            <section id="about">
-                <h2 data-animate="true">About</h2>
-            </section>
-        </main>
+    <main>
+      <section id="intro">
+        <h2>Intro</h2>
+      </section>
 
-        <footer>
+      <section id="todocollection">
+        <div id="todocollection-header">
+          <h2>Your To-Do Lists</h2>
+          <p class="subtitle">A Collection of Your To Do Lists</p>
+        </div>
 
-        </footer>
-    </body>
+        <div class="flex-container">
+          <div class="todolist-items">
+            <div class="todo-item">
+              <h3>YourList1</h3>
+              <p>Lorem Ipsum</p>
+              <button>More</button>
+            </div>
+
+            <div class="todo-item">
+              <h3>YourList2</h3>
+              <p>Lorem Ipsum</p>
+              <button>More</button>
+            </div>
+
+            <div class="todo-item">
+              <h3>YourList3</h3>
+              <p>Lorem Ipsum</p>
+              <button>More</button>
+            </div>
+
+            <div class="todo-item">
+              <h3>YourList4</h3>
+              <p>Lorem Ipsum</p>
+              <button>More</button>
+            </div>
+
+            <div class="todo-item">
+              <h3>YourList4</h3>
+              <p>Lorem Ipsum</p>
+              <button>More</button>
+            </div>
+
+            <div class="todo-item">
+              <h3>YourList5</h3>
+              <p>Lorem Ipsum</p>
+              <button>More</button>
+            </div>
+          </div>
+        </div>
+        <button id="scrollLeftButton">Scroll Left</button>
+        <button id="scrollRightButton">Scroll Right</button>
+      </section>
+
+      <section id="about">
+        <h2>About</h2>
+      </section>
+    </main>
+
+    <div class="login-box" id="loginPanel" style="display: none">
+      <h2>Login</h2>
+      <form>
+        <div class="user-box">
+          <input type="text" name="username" required="" />
+          <label>Username</label>
+          <span class="error-message" id="usernameError"></span>
+        </div>
+        <div class="user-box">
+          <input type="text" name="email" required="" />
+          <label>E-Mail</label>
+          <span class="error-message" id="emailError"></span>
+        </div>
+        <div class="user-box">
+          <input type="password" name="password" required="" />
+          <label>Password</label>
+          <span class="error-message" id="passwordError"></span>
+        </div>
+
+        <a href="#" id="login" class="login-action-button">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Log In
+        </a>
+        <a href="#" id="cancel" class="login-action-button">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Cancel
+        </a>
+      </form>
+    </div>
+
+    <footer></footer>
+  </body>
 </html>

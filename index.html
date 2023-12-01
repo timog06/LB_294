@@ -25,58 +25,63 @@
       </section>
 
       <section id="todocollection">
-        <div id="todocollection-header">
-          <h2>Your To-Do Lists</h2>
-          <p class="subtitle">A Collection of Your To Do Lists</p>
+        <div class="flex-container">
+          <div id="todocollection-header">
+            <h2>Your To-Do Lists</h2>
+            <p class="subtitle">A Collection of Your To Do Lists</p>
+          </div>
+          <button id="newTodoButton" style="position: absolute; right: 20px">
+            New
+          </button>
         </div>
-
         <div class="flex-container">
           <div class="todolist-items">
             <div class="todo-item">
               <h3>YourList1</h3>
               <p>Lorem Ipsum</p>
-              <button>More</button>
+              <button class="moreToDo">More</button>
             </div>
 
             <div class="todo-item">
               <h3>YourList2</h3>
               <p>Lorem Ipsum</p>
-              <button>More</button>
+              <button class="moreToDo">More</button>
             </div>
 
             <div class="todo-item">
               <h3>YourList3</h3>
               <p>Lorem Ipsum</p>
-              <button>More</button>
+              <button class="moreToDo">More</button>
             </div>
 
             <div class="todo-item">
               <h3>YourList4</h3>
               <p>Lorem Ipsum</p>
-              <button>More</button>
-            </div>
-
-            <div class="todo-item">
-              <h3>YourList4</h3>
-              <p>Lorem Ipsum</p>
-              <button>More</button>
+              <button class="moreToDo">More</button>
             </div>
 
             <div class="todo-item">
               <h3>YourList5</h3>
               <p>Lorem Ipsum</p>
-              <button>More</button>
+              <button class="moreToDo">More</button>
             </div>
           </div>
         </div>
-        <button id="scrollLeftButton">Scroll Left</button>
-        <button id="scrollRightButton">Scroll Right</button>
       </section>
 
       <section id="about">
         <h2>About</h2>
       </section>
     </main>
+
+    <div class="todolist-field" style="display: none;">
+      <span class="close-button">&times;</span>
+      <div class="popup-header">To-Do List</div>
+      <input type="text" class="todo-input" placeholder="Add a new task">
+      <ul class="todo-list">
+        
+      </ul>
+  </div>
 
     <div class="login-box" id="loginPanel" style="display: none">
       <h2>Login</h2>

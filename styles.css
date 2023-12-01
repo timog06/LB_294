@@ -19,6 +19,10 @@ a {
   color: var(--text);
 }
 
+button {
+  cursor:pointer;
+}
+
 section {
   height: 100vh;
   display: flex;
@@ -47,7 +51,7 @@ header {
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 50;
+  z-index: 70;
   padding: 1.5rem;
 }
 
@@ -169,7 +173,7 @@ To-Do List Collection
   margin: 10px 0;
 }
 
-.todo-item button {
+.moreToDo {
   align-self: center;
   padding: 10px 20px;
   background-color: #029dbb;
@@ -179,7 +183,86 @@ To-Do List Collection
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 10px;
+  transition: top 0.1s, box-shadow 0.1s; 
+  position: relative;
 }
+
+.moreToDo:hover {
+  background-color: #027b9b;
+}
+
+.moreToDo:active {
+  top: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/*
+To-Do-Maker
+*/
+#newTodoButton {
+  background-color: #28a745; 
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 4px;
+  top: 100px;
+  position: relative;
+  transition: top 0.1s, box-shadow 0.1s;
+}
+
+#newTodoButton:hover {
+  background-color: rgb(30, 120, 45);
+}
+
+#newTodoButton:active {
+  top: 102px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/*
+To-Do itself
+*/
+.todolist-field {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; 
+  max-width: 500px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 50;
+  border-radius: 8px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.popup-header {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.todo-input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
 
 /*
 Login Panel

@@ -1,87 +1,126 @@
 document.addEventListener("DOMContentLoaded", function () {
-    //Login Panel
-    var loginOpener = document.getElementById("loginOpener");
-    var loginButton = document.getElementById("login");
-    var cancelButton = document.getElementById("cancel");
-    var loginPanel = document.getElementById("loginPanel");
-    var inputs = document.querySelectorAll(".login-box input");
-  
-    function toggleOverlay(isVisible) {
-      var overlays = document.querySelectorAll(".overlay");
-      overlays.forEach(function (overlay) {
-        overlay.style.display = isVisible ? "block" : "none";
-      });
-    }
-  
-    function toggleLoginPanel(shouldClose) {
-      if (shouldClose) {
-        loginPanel.style.display = "none";
-        inputs.forEach((input) => (input.value = ""));
-        clearErrorMessages();
-        toggleOverlay(false); // Close the overlay
-      } else {
-        loginPanel.style.display = "block";
-        toggleOverlay(true); // Open the overlay
-      }
-    }
-  
-    function clearErrorMessages() {
-      var errorMessages = document.querySelectorAll(".error-message");
-      errorMessages.forEach(function (message) {
-        message.textContent = "";
-      });
-    }
-  
-    function validateInputs() {
-        var isValid = true;
-        var username = document.querySelector('input[name="username"]');
-        var email = document.querySelector('input[name="email"]');
-        var password = document.querySelector('input[name="password"]');
-    
-        if (!username.value.trim()) {
-            document.getElementById('usernameError').textContent = 'Benutzername eingeben.';
-            isValid = false;
-        } else {
-            document.getElementById('usernameError').textContent = '';
-        }
-    
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email.value.trim()) {
-            document.getElementById('emailError').textContent = 'E-Mail Addresse eingeben.';
-            isValid = false;
-        } else if (!emailRegex.test(email.value.trim())) {
-            document.getElementById('emailError').textContent = 'Bitte eine gültige E-Mail Addresse eingeben.';
-            isValid = false;
-        } else {
-            document.getElementById('emailError').textContent = '';
-        }
-    
-        if (!password.value.trim()) {
-            document.getElementById('passwordError').textContent = 'Passwort eingeben.';
-            isValid = false;
-        } else {
-            document.getElementById('passwordError').textContent = '';
-        }
-    
-        return isValid;
-    }
-  
-    loginOpener.addEventListener("click", function (e) {
-      e.preventDefault();
-      toggleLoginPanel(false);
+  var loginOpener = document.getElementById("loginOpener");
+  var loginButton = document.getElementById("login");
+  var cancelButton = document.getElementById("cancel");
+  var loginPanel = document.getElementById("loginPanel");
+  var inputs = document.querySelectorAll(".login-box input");
+  var todoInput = document.querySelector('.todolist-field .todo-input');
+  var todoList = document.querySelector('.todo-list');
+
+  function toggleOverlay(isVisible) {
+    var overlays = document.querySelectorAll(".overlay");
+    overlays.forEach(function (overlay) {
+      overlay.style.display = isVisible ? "block" : "none";
     });
-  
-    loginButton.addEventListener("click", function (e) {
-      e.preventDefault();
-      if (validateInputs()) {
-        toggleLoginPanel(true);
-      }
+  }
+
+  document
+    .getElementById("newTodoButton")
+    .addEventListener("click", function () {
+      toggleTodoListPopup(false);
     });
-  
-    cancelButton.addEventListener("click", function (e) {
-      e.preventDefault();
-      toggleLoginPanel(true);
+  document
+    .querySelector(".todolist-field .close-button")
+    .addEventListener("click", function () {
+      toggleTodoListPopup(true);
     });
 
+  function toggleTodoListPopup(shouldClose) {
+    var todoListPopup = document.querySelector(".todolist-field");
+    if (shouldClose) {
+      todoListPopup.style.display = "none";
+      toggleOverlay(false);
+    } else {
+      todoListPopup.style.display = "block";
+      toggleOverlay(true);
+    }
+  }
+
+  todoInput.addEventListener('keypress', function (event) {
+    if (event.keyCode === 13 || event.which === 13) {
+      var inputVal = todoInput.value.trim();
+      if (inputVal) {
+        var newTodoItem = document.createElement('li');
+        newTodoItem.innerHTML = '<span><i class="fa fa-trash"></i></span> ' + inputVal;
+        todoList.appendChild(newTodoItem);
+        todoInput.value = ''; 
+      }
+    }
   });
-  
+
+  //Login Panel
+  function toggleLoginPanel(shouldClose) {
+    if (shouldClose) {
+      loginPanel.style.display = "none";
+      inputs.forEach((input) => (input.value = ""));
+      clearErrorMessages();
+      toggleOverlay(false);
+    } else {
+      loginPanel.style.display = "block";
+      toggleOverlay(true);
+    }
+  }
+
+  function clearErrorMessages() {
+    var errorMessages = document.querySelectorAll(".error-message");
+    errorMessages.forEach(function (message) {
+      message.textContent = "";
+    });
+  }
+
+  function validateInputs() {
+    var isValid = true;
+    var username = document.querySelector('input[name="username"]');
+    var email = document.querySelector('input[name="email"]');
+    var password = document.querySelector('input[name="password"]');
+
+    if (!username.value.trim()) {
+      document.getElementById("usernameError").textContent =
+        "Benutzername eingeben.";
+      isValid = false;
+    } else {
+      document.getElementById("usernameError").textContent = "";
+    }
+
+    //E-Mail Regex was generated by ChatGPT
+    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email.value.trim()) {
+      document.getElementById("emailError").textContent =
+        "E-Mail Addresse eingeben.";
+      isValid = false;
+    } else if (!emailRegex.test(email.value.trim())) {
+      document.getElementById("emailError").textContent =
+        "Bitte eine gültige E-Mail Addresse eingeben.";
+      isValid = false;
+    } else {
+      document.getElementById("emailError").textContent = "";
+    }
+
+    if (!password.value.trim()) {
+      document.getElementById("passwordError").textContent =
+        "Passwort eingeben.";
+      isValid = false;
+    } else {
+      document.getElementById("passwordError").textContent = "";
+    }
+
+    return isValid;
+  }
+
+  loginOpener.addEventListener("click", function (e) {
+    e.preventDefault();
+    toggleLoginPanel(false);
+  });
+
+  loginButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (validateInputs()) {
+      toggleLoginPanel(true);
+    }
+  });
+
+  cancelButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    toggleLoginPanel(true);
+  });
+});

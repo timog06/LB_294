@@ -1,6 +1,4 @@
-/*
-Main
-*/
+/* Main */
 html {
   --text: #fff;
   background: #001220;
@@ -20,16 +18,7 @@ a {
 }
 
 button {
-  cursor:pointer;
-}
-
-section {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position:relative;
-  z-index: 3;
+  cursor: pointer;
 }
 
 .overlay {
@@ -43,10 +32,57 @@ section {
   z-index: 40;
 }
 
-/*
-Navigation
-*/
+footer {
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 1.5rem;
+}
 
+/*
+Sections
+*/
+.abouts h1 {
+  color:white;
+}
+.abouts p {
+  color:white;
+}
+
+.section-part {
+  height: calc(100vh - 80px);
+  background: linear-gradient(#141e30, #243b55);
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: linear-gradient(#141e30, #243b55);
+  text-align: left;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+  z-index: 5;
+}
+
+.section-header h2 {
+  color: #ffffff;
+  font-size: 2em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Navigation */
 header {
   position: sticky;
   top: 0;
@@ -74,14 +110,16 @@ nav ul {
   justify-content: space-between;
   width: 80%;
   text-transform: uppercase;
-  li {
-    font-weight: bold;
-    padding: 3.7px;
-    border-radius: 5rem;
-  }
-  :hover {
-    background-color: #029dbb;
-  }
+}
+
+nav li {
+  font-weight: bold;
+  padding: 3.7px;
+  border-radius: 5rem;
+}
+
+nav li:hover {
+  background-color: #029dbb;
 }
 
 .circular-button {
@@ -104,169 +142,8 @@ nav ul {
   background-color: #029dbb;
   backdrop-filter: blur(4px);
 }
-/*
-To-Do List Collection
-*/
-#todocollection {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: white;
-  text-align: left;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-height: calc(100vh - 80px);
-  z-index:5;
-}
 
-#todocollection h2 {
-  color: #000000;
-  font-size: 2em;
-  margin-bottom: 0.5em;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-#todocollection p.subtitle {
-  color: #5e5e5e;
-  font-size: 1em;
-  margin-top: 0;
-  letter-spacing: 1px;
-  font-weight: lighter;
-  text-transform: uppercase;
-}
-
-#todocollection-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 20px;
-}
-
-
-.todolist-items {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-
-}
-
-.todo-item {
-  background-color: #ffffff;
-  width: 360px;
-  height: 240px;
-  margin: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  border-radius: 4px;
-}
-
-.todo-item h3 {
-  margin: 10px 0;
-}
-
-.todo-item p {
-  flex-grow: 1;
-  margin: 10px 0;
-}
-
-.moreToDo {
-  align-self: center;
-  padding: 10px 20px;
-  background-color: #029dbb;
-  color: white;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-bottom: 10px;
-  transition: top 0.1s, box-shadow 0.1s; 
-  position: relative;
-}
-
-.moreToDo:hover {
-  background-color: #027b9b;
-}
-
-.moreToDo:active {
-  top: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-/*
-To-Do-Maker
-*/
-#newTodoButton {
-  background-color: #28a745; 
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: bold;
-  border-radius: 4px;
-  top: 100px;
-  position: relative;
-  transition: top 0.1s, box-shadow 0.1s;
-}
-
-#newTodoButton:hover {
-  background-color: rgb(30, 120, 45);
-}
-
-#newTodoButton:active {
-  top: 102px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-/*
-To-Do itself
-*/
-.todolist-field {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%; 
-  max-width: 500px;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  z-index: 50;
-  border-radius: 8px;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.popup-header {
-  background-color: #3498db;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  font-size: 24px;
-}
-
-.todo-input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-}
-
-
-/*
-Login Panel
-*/
+/* Login Panel */
 .login-box {
   position: fixed;
   top: 50%;
@@ -274,7 +151,7 @@ Login Panel
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
@@ -288,6 +165,7 @@ Login Panel
   text-align: center;
 }
 
+/* User Input Boxes */
 .login-box .user-box {
   position: relative;
 }
@@ -303,6 +181,7 @@ Login Panel
   outline: none;
   background: transparent;
 }
+
 .login-box .user-box label {
   position: absolute;
   top: 0;
@@ -322,7 +201,9 @@ Login Panel
   font-size: 12px;
 }
 
-.login-box form a#login {
+/* Login and Cancel Button Styles */
+.login-box form a#login,
+.login-box form a#cancel {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
@@ -337,119 +218,58 @@ Login Panel
 }
 
 .login-box form a#cancel {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  color: RED;
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: 0.5s;
-  margin-top: 40px;
+  color: red;
   margin-left: 60px;
-  letter-spacing: 4px;
+}
+
+.login-box a#login:hover,
+.login-box a#cancel:hover {
+  color: #fff;
+  border-radius: 5px;
 }
 
 .login-box a#login:hover {
   background: #03e9f4;
-  color: #fff;
-  border-radius: 5px;
   box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
     0 0 100px #03e9f4;
 }
 
 .login-box a#cancel:hover {
   background: red;
-  color: #fff;
-  border-radius: 5px;
   box-shadow: 0 0 5px red, 0 0 25px red, 0 0 50px red, 0 0 100px red;
 }
 
+/* Button Animations */
 .login-box a span {
   position: absolute;
   display: block;
 }
 
-.login-box a span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
+/* Login Button Animations */
+.login-box a#login span:nth-child(1) {
   background: linear-gradient(90deg, transparent, #03e9f4);
   animation: btn-anim1 1s linear infinite;
 }
 
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
-.login-box a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
+.login-box a#login span:nth-child(2) {
   background: linear-gradient(180deg, transparent, #03e9f4);
   animation: btn-anim2 1s linear infinite;
   animation-delay: 0.25s;
 }
 
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%,
-  100% {
-    top: 100%;
-  }
-}
-
-.login-box a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
+.login-box a#login span:nth-child(3) {
   background: linear-gradient(270deg, transparent, #03e9f4);
   animation: btn-anim3 1s linear infinite;
   animation-delay: 0.5s;
 }
 
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-.login-box a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
+.login-box a#login span:nth-child(4) {
   background: linear-gradient(360deg, transparent, #03e9f4);
   animation: btn-anim4 1s linear infinite;
   animation-delay: 0.75s;
 }
 
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,
-  100% {
-    bottom: 100%;
-  }
-}
-
+/* Cancel Button Animations */
 .login-box a#cancel span:nth-child(1) {
   background: linear-gradient(90deg, transparent, red);
   animation: btn-anim1-red 1s linear infinite;
@@ -473,50 +293,38 @@ Login Panel
   animation-delay: 0.75s;
 }
 
-@keyframes btn-anim1-red {
-  0% {
-    left: -100%;
-  }
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
-@keyframes btn-anim2-red {
-  0% {
-    top: -100%;
-  }
-  50%,
-  100% {
-    top: 100%;
-  }
-}
-
-@keyframes btn-anim3-red {
-  0% {
-    right: -100%;
-  }
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-@keyframes btn-anim4-red {
-  0% {
-    bottom: -100%;
-  }
-  50%,
-  100% {
-    bottom: 100%;
-  }
-}
-
+/* Error Message */
 .error-message {
   position: relative;
   color: red;
   font-size: 12px;
   margin-top: -5px;
   display: block;
+}
+
+/*
+Footer & Socials
+*/
+.content-footer {
+  margin-top: 5em;
+  padding: 4em 0;
+  background-color: #243b55;
+}
+
+.content-footer > p {
+  color: white;
+}
+
+.social {
+  padding: 0;
+  list-style: none;
+}
+a.socials > li {
+  font: bold;
+  color: #029dbb;
+}
+
+.social > li {
+  display: inline-block;
+  margin-right: 1em;
 }

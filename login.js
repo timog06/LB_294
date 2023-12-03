@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var cancelButton = document.getElementById("cancel");
   var loginPanel = document.getElementById("loginPanel");
   var inputs = document.querySelectorAll(".login-box input");
-  var todoInput = document.querySelector('.todolist-field .todo-input');
-  var todoList = document.querySelector('.todo-list');
 
   function toggleOverlay(isVisible) {
     var overlays = document.querySelectorAll(".overlay");
@@ -13,40 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
       overlay.style.display = isVisible ? "block" : "none";
     });
   }
-
-  document
-    .getElementById("newTodoButton")
-    .addEventListener("click", function () {
-      toggleTodoListPopup(false);
-    });
-  document
-    .querySelector(".todolist-field .close-button")
-    .addEventListener("click", function () {
-      toggleTodoListPopup(true);
-    });
-
-  function toggleTodoListPopup(shouldClose) {
-    var todoListPopup = document.querySelector(".todolist-field");
-    if (shouldClose) {
-      todoListPopup.style.display = "none";
-      toggleOverlay(false);
-    } else {
-      todoListPopup.style.display = "block";
-      toggleOverlay(true);
-    }
-  }
-
-  todoInput.addEventListener('keypress', function (event) {
-    if (event.keyCode === 13 || event.which === 13) {
-      var inputVal = todoInput.value.trim();
-      if (inputVal) {
-        var newTodoItem = document.createElement('li');
-        newTodoItem.innerHTML = '<span><i class="fa fa-trash"></i></span> ' + inputVal;
-        todoList.appendChild(newTodoItem);
-        todoInput.value = ''; 
-      }
-    }
-  });
 
   //Login Panel
   function toggleLoginPanel(shouldClose) {

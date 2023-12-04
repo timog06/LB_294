@@ -1,8 +1,8 @@
-var contador = 0,
-  select_opt = 0;
+  var contador = 0,
+  select_opt = 0; 
 
+// Function to add a new item to the list
 function add_to_list(action, title, description, date, id) {
-  var select_opt;
   switch (action) {
     case "SHOPPING":
       select_opt = 0;
@@ -17,7 +17,7 @@ function add_to_list(action, title, description, date, id) {
       select_opt = 3;
       break;
     default:
-      select_opt = 0; // Default case, if action is unknown
+      select_opt = 0;
   }
 
   var class_li = [
@@ -31,6 +31,7 @@ function add_to_list(action, title, description, date, id) {
     '<a href="javascript:void(0);" onclick="deleteTodo(\'' +
     id +
     '\');"><i class="material-icons">&#xE5CA;</i></a>';
+
   var cont =
     '<div class="col_md_1_list"><p>' +
     action +
@@ -59,6 +60,8 @@ function add_to_list(action, title, description, date, id) {
     contador++;
   }, 200);
 }
+
+// Function to add a new item from a form
 function add_from_form() {
   var action = document.querySelector("#action_select").value,
     title = document.querySelector(".input_title_desc").value,
@@ -72,6 +75,7 @@ function add_from_form() {
     date: date,
   };
 
+  // Make a POST request to add the new todo
   fetch("http://localhost:2940/api/v1/entities", {
     method: "POST",
     headers: {
@@ -94,6 +98,7 @@ function add_from_form() {
     });
 }
 
+// Function to mark an item as finished
 function finish_action(num, num2) {
   var class_li = [
     "list_shopping list_dsp_true",
@@ -109,6 +114,7 @@ function finish_action(num, num2) {
   }, 500);
 }
 
+// Function to delete finished items
 function del_finish() {
   var li = document.querySelectorAll(".list_finish_state");
   for (var e = 0; e < li.length; e++) {
@@ -124,7 +130,10 @@ function del_finish() {
     }
   }, 500);
 }
+
 var t = 0;
+
+// Function to add a new item
 function add_new() {
   if (t % 2 == 0) {
     document.querySelector(".cont_crear_new").className =
@@ -143,6 +152,7 @@ function add_new() {
 
 let todos = [];
 
+// Function to load todos from the server
 function loadToDos() {
   fetch("http://localhost:2940/api/v1/entities")
     .then((response) => response.json())
@@ -155,6 +165,7 @@ function loadToDos() {
     });
 }
 
+// Function to display todos in the list
 function displayTodos() {
   const ul = document.querySelector(".cont_princ_lists > ul");
   ul.innerHTML = "";
@@ -164,6 +175,7 @@ function displayTodos() {
   });
 }
 
+// Function to delete a todo item
 function deleteTodo(id) {
   fetch(`http://localhost:2940/api/v1/entities/${id}`, {
     method: "DELETE",
@@ -183,4 +195,5 @@ function deleteTodo(id) {
     });
 }
 
+// Load todos when the page is loaded
 document.addEventListener("DOMContentLoaded", loadToDos);

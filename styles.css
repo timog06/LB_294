@@ -1,3 +1,7 @@
+/*
+Der Style des Headers/der Navbar wurde von Codepen genommen und hier implementiert.
+Ein Teil dieser CSS wurde mit der Hilfe von ChatGPT gemacht.
+*/
 /* Main */
 html {
   --text: #fff;
@@ -37,6 +41,7 @@ footer {
   top: 0;
   left: 0;
   padding: 1.5rem;
+  color:white;
 }
 
 /*

@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", (event) => {
   function isLoggedIn() {
     return localStorage.getItem("accessToken") !== null;

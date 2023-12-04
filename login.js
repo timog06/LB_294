@@ -1,3 +1,6 @@
+/*
+Das Umschalten des overlays und des Login-Panels wurde mit der Hilfe von ChatGPT gemacht
+*/
 document.addEventListener("DOMContentLoaded", function () {
   var loginOpener = document.getElementById("loginOpener");
   var loginButton = document.getElementById("login");
@@ -67,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log(`Logged in successfully as ${username}`);
           toggleLoginPanel(true);
 
-          // Show the todo list section
           var todoListSection = document.getElementById("todoList");
           todoListSection.style.display = "block";
         } else {

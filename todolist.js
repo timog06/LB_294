@@ -1,7 +1,12 @@
 var contador = 0,
   select_opt = 0;
 
-function add_to_list(action, title, description, date) {
+function add_to_list() {
+  var action = document.querySelector("#action_select").value,
+    description = document.querySelector(".input_description").value,
+    title = document.querySelector(".input_title_desc").value,
+    date = document.getElementById("date_select").value;
+
   switch (action) {
     case "SHOPPING":
       select_opt = 0;
@@ -25,25 +30,28 @@ function add_to_list(action, title, description, date) {
   ];
 
   var cont =
-    '<div class="col_md_1_list"><p>' +
+    '<div class="col_md_1_list">    <p>' +
     action +
-    "</p></div>" +
-    '<div class="col_md_2_list"><h4>' +
+    '</p>    </div> <div class="col_md_2_list"> <h4>' +
     title +
-    "</h4><p>" +
+    "</h4> <p>" +
     description +
-    "</p></div>" +
-    '<div class="col_md_3_list"><div class="cont_text_date"><p>' +
+    '</p> </div>    <div class="col_md_3_list"> <div class="cont_text_date"> <p>' +
     date +
-    "</p></div>" +
-    '<div class="cont_btns_options"><ul><li><a href="#finish" onclick="finish_action(' +
+    '</p>  </div>  <div class="cont_btns_options">    <ul>  <li><a href="#finish" onclick="finish_action(' +
     select_opt +
-    ", " +
+    "," +
     contador +
-    ');"><i class="material-icons">&#xE5CA;</i></a></li></ul></div></div>';
+    ');" ><i class="material-icons">&#xE5CA;</i></a></li>   </ul>  </div>    </div>';
 
-  var li = document.createElement("li");
-  li.className = class_li[select_opt] + " li_num_" + contador;
+    var li = document.createElement("li");
+    li.className = class_li[select_opt] + " li_num_" + contador;
+  
+    li.setAttribute('data-id', id);
+  
+    li.innerHTML = cont;
+    document.querySelectorAll(".cont_princ_lists > ul")[0].appendChild(li);
+
   li.innerHTML = cont;
   document.querySelectorAll(".cont_princ_lists > ul")[0].appendChild(li);
 
@@ -58,38 +66,6 @@ function add_to_list(action, title, description, date) {
   }, 200);
 }
 
-function add_from_form() {
-  var action = document.querySelector("#action_select").value,
-    title = document.querySelector(".input_title_desc").value,
-    description = document.querySelector(".input_description").value,
-    date = document.getElementById("date_select").value;
-
-  saveToDo({
-    action: action,
-    title: title,
-    description: description,
-    date: date,
-  });
-  add_to_list(action, title, description, date);
-}
-
-function saveToDo(todo) {
-  fetch("http://localhost:2940/api/v1/entities", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(todo),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
 function finish_action(num, num2) {
   var class_li = [
     "list_shopping list_dsp_true",
@@ -97,38 +73,13 @@ function finish_action(num, num2) {
     "list_sport list_dsp_true",
     "list_music list_dsp_true",
   ];
-
-  // Assuming you have a unique ID associated with each item
-  var itemId = document.querySelector(".li_num_" + num2).getAttribute("data-id");
-
-  // Create the URL for the delete request
-  var deleteUrl = "http://localhost:2940/api/v1/entities/" + itemId;
-
-  // Send a DELETE request to delete the item
-  fetch(deleteUrl, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      // Log the response to inspect it
-      console.log("Response from server:", response);
-      return response.json();
-    })
-    .then((data) => {
-      console.log("Successfully deleted item:", data);
-      var elementToDelete = document.querySelector(".li_num_" + num2);
-      if (elementToDelete) {
-        elementToDelete.remove();
-      }
-      del_finish();
-    })
-    .catch((error) => {
-      console.error("Error deleting item:", error);
-    });
-  }  
-
+  console.log(".li_num_" + num2);
+  document.querySelector(".li_num_" + num2).className =
+    class_li[num] + " list_finish_state";
+  setTimeout(function () {
+    del_finish();
+  }, 500);
+}
 
 function del_finish() {
   var li = document.querySelectorAll(".list_finish_state");
@@ -162,17 +113,21 @@ function add_new() {
   }
 }
 
-let loadToDos = function () {
+function loadToDos() {
   fetch("http://localhost:2940/api/v1/entities")
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then((data) => {
-      data.forEach((todoList) => {
-        todoList.forEach((todo) => {
-          add_to_list(todo.action, todo.title, todo.description, todo.date);
-        });
+      data.forEach((todo) => {
+        add_to_list(todo.action, todo.title, todo.description, todo.date, todo.id);
       });
     })
     .catch((error) => {
-      console.error("Error fetching todos:", error);
+      console.error("Error loading todos:", error);
     });
-};
+}
+loadToDos();

@@ -17,12 +17,12 @@ Content-Type: application/json
 }
 
 ###
-Delete http://localhost:2940/api/v1/entities/veCWi59VmjQyDjsqJWMftQ HTTP/1.1 
+Delete http://localhost:2940/api/v1/entities/1DR7Q5K2FdfjgJbPjGVTPp HTTP/1.1 
 Content-Type: application/json
 
 
 ###
-PUT http://localhost:2940/api/v1/entities/tbsHk1M7gKQExhyE2B1mVG HTTP/1.1 
+PUT http://localhost:2940/api/v1/entities/8nxn9HZNx4epe3rdzj1L61 HTTP/1.1 
 Content-Type: application/json
 
 {

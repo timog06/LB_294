@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", (event) => {
+  loadToDos();
+
   function hideAllSections() {
     document.querySelectorAll("main > section").forEach((section) => {
       section.style.display = "none";

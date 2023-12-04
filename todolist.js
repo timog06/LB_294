@@ -1,12 +1,7 @@
 var contador = 0,
   select_opt = 0;
 
-function add_to_list() {
-  var action = document.querySelector("#action_select").value,
-    description = document.querySelector(".input_description").value,
-    title = document.querySelector(".input_title_desc").value,
-    date = document.getElementById("date_select").value;
-
+function add_to_list(action, title, description, date) {
   switch (action) {
     case "SHOPPING":
       select_opt = 0;
@@ -30,23 +25,25 @@ function add_to_list() {
   ];
 
   var cont =
-    '<div class="col_md_1_list">    <p>' +
+    '<div class="col_md_1_list"><p>' +
     action +
-    '</p>    </div> <div class="col_md_2_list"> <h4>' +
+    "</p></div>" +
+    '<div class="col_md_2_list"><h4>' +
     title +
-    "</h4> <p>" +
+    "</h4><p>" +
     description +
-    '</p> </div>    <div class="col_md_3_list"> <div class="cont_text_date"> <p>' +
+    "</p></div>" +
+    '<div class="col_md_3_list"><div class="cont_text_date"><p>' +
     date +
-    '</p>  </div>  <div class="cont_btns_options">    <ul>  <li><a href="#finish" onclick="finish_action(' +
+    "</p></div>" +
+    '<div class="cont_btns_options"><ul><li><a href="#finish" onclick="finish_action(' +
     select_opt +
-    "," +
+    ", " +
     contador +
-    ');" ><i class="material-icons">&#xE5CA;</i></a></li>   </ul>  </div>    </div>';
+    ');"><i class="material-icons">&#xE5CA;</i></a></li></ul></div></div>';
 
   var li = document.createElement("li");
   li.className = class_li[select_opt] + " li_num_" + contador;
-
   li.innerHTML = cont;
   document.querySelectorAll(".cont_princ_lists > ul")[0].appendChild(li);
 
@@ -59,6 +56,38 @@ function add_to_list() {
       "list_dsp_true " + class_li[select_opt] + " li_num_" + contador;
     contador++;
   }, 200);
+}
+
+function add_from_form() {
+  var action = document.querySelector("#action_select").value,
+      title = document.querySelector(".input_title_desc").value,
+      description = document.querySelector(".input_description").value,
+      date = document.getElementById("date_select").value;
+
+  saveToDo({
+    action: action,
+    title: title,
+    description: description,
+    date: date
+  });
+  add_to_list(action, title, description, date);
+}
+
+function saveToDo(todo) {
+  fetch("http://localhost:2940/api/v1/entities", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify([todo])
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("Success:", data);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
 }
 
 function finish_action(num, num2) {
@@ -112,8 +141,13 @@ function add_new() {
 
 let loadToDos = function () {
   fetch("http://localhost:2940/api/v1/entities")
-    .then()
+    .then((response) => response.json())
+    .then((data) => {
+      data.list.forEach((todo) => {
+        add_to_list(todo.action, todo.title, todo.description, todo.date);
+      });
+    })
     .catch((error) => {
-      console.log(error);
+      console.error("Error fetching todos:", error);
     });
 };

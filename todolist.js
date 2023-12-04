@@ -1,12 +1,8 @@
 var contador = 0,
   select_opt = 0;
 
-function add_to_list() {
-  var action = document.querySelector("#action_select").value,
-    description = document.querySelector(".input_description").value,
-    title = document.querySelector(".input_title_desc").value,
-    date = document.getElementById("date_select").value;
-
+function add_to_list(action, title, description, date, id) {
+  var select_opt;
   switch (action) {
     case "SHOPPING":
       select_opt = 0;
@@ -20,6 +16,8 @@ function add_to_list() {
     case "MUSIC":
       select_opt = 3;
       break;
+    default:
+      select_opt = 0; // Default case, if action is unknown
   }
 
   var class_li = [
@@ -29,41 +27,71 @@ function add_to_list() {
     "list_music list_dsp_none",
   ];
 
+  var deleteLink =
+    '<a href="javascript:void(0);" onclick="deleteTodo(\'' +
+    id +
+    '\');"><i class="material-icons">&#xE5CA;</i></a>';
   var cont =
-    '<div class="col_md_1_list">    <p>' +
+    '<div class="col_md_1_list"><p>' +
     action +
-    '</p>    </div> <div class="col_md_2_list"> <h4>' +
+    '</p></div><div class="col_md_2_list"><h4>' +
     title +
-    "</h4> <p>" +
+    "</h4><p>" +
     description +
-    '</p> </div>    <div class="col_md_3_list"> <div class="cont_text_date"> <p>' +
+    '</p></div><div class="col_md_3_list"><div class="cont_text_date"><p>' +
     date +
-    '</p>  </div>  <div class="cont_btns_options">    <ul>  <li><a href="#finish" onclick="finish_action(' +
-    select_opt +
-    "," +
-    contador +
-    ');" ><i class="material-icons">&#xE5CA;</i></a></li>   </ul>  </div>    </div>';
+    '</p></div><div class="cont_btns_options"><ul><li>' +
+    deleteLink +
+    "</li></ul></div></div>";
 
-    var li = document.createElement("li");
-    li.className = class_li[select_opt] + " li_num_" + contador;
-  
-    li.setAttribute('data-id', id);
-  
-    li.innerHTML = cont;
-    document.querySelectorAll(".cont_princ_lists > ul")[0].appendChild(li);
-
+  var li = document.createElement("li");
+  li.className = class_li[select_opt] + " li_num_" + contador;
   li.innerHTML = cont;
   document.querySelectorAll(".cont_princ_lists > ul")[0].appendChild(li);
 
   setTimeout(function () {
-    document.querySelector(".li_num_" + contador).style.display = "block";
+    li.style.display = "block";
   }, 100);
 
   setTimeout(function () {
-    document.querySelector(".li_num_" + contador).className =
+    li.className =
       "list_dsp_true " + class_li[select_opt] + " li_num_" + contador;
     contador++;
   }, 200);
+}
+function add_from_form() {
+  var action = document.querySelector("#action_select").value,
+    title = document.querySelector(".input_title_desc").value,
+    description = document.querySelector(".input_description").value,
+    date = document.getElementById("date_select").value;
+
+  var newTodo = {
+    action: action,
+    title: title,
+    description: description,
+    date: date,
+  };
+
+  fetch("http://localhost:2940/api/v1/entities", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newTodo),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("New todo added:", data);
+      add_to_list(action, title, description, date, data.id);
+    })
+    .catch((error) => {
+      console.error("Error adding new todo:", error);
+    });
 }
 
 function finish_action(num, num2) {
@@ -113,21 +141,46 @@ function add_new() {
   }
 }
 
+let todos = [];
+
 function loadToDos() {
   fetch("http://localhost:2940/api/v1/entities")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
+    .then((response) => response.json())
     .then((data) => {
-      data.forEach((todo) => {
-        add_to_list(todo.action, todo.title, todo.description, todo.date, todo.id);
-      });
+      todos = data;
+      displayTodos();
     })
     .catch((error) => {
       console.error("Error loading todos:", error);
     });
 }
-loadToDos();
+
+function displayTodos() {
+  const ul = document.querySelector(".cont_princ_lists > ul");
+  ul.innerHTML = "";
+  todos.forEach((todo) => {
+    console.log("Displaying todo:", todo);
+    add_to_list(todo.action, todo.title, todo.description, todo.date, todo.id);
+  });
+}
+
+function deleteTodo(id) {
+  fetch(`http://localhost:2940/api/v1/entities/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      console.log("Todo deleted:", id);
+      loadToDos();
+    })
+    .catch((error) => {
+      console.error("Error deleting todo:", error);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", loadToDos);

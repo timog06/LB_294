@@ -1,3 +1,32 @@
+function login() {
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+
+  fetch('http://localhost:2941/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username: username, password: password }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.accessToken) {
+      localStorage.setItem('accessToken', data.accessToken);
+      loadToDos();
+
+      console.log(`Logged in successfully as ${username}`);
+    } else {
+      console.error('Login failed');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+
+/*
 document.addEventListener("DOMContentLoaded", function () {
   var loginOpener = document.getElementById("loginOpener");
   var loginButton = document.getElementById("login");
@@ -88,3 +117,4 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleLoginPanel(true);
   });
 });
+*/

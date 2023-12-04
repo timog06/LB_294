@@ -28,7 +28,7 @@ content-type: application/json
 
 {
     "username": "admin",
-    "password": "wrongpasswfghfghord"
+    "password": "wrongpassword"
 }
 
 ### failed login (empty credentials

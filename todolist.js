@@ -90,23 +90,6 @@ function saveToDo(todo) {
     });
 }
 
-function deleteTodoById(id) {
-  fetch(`http://localhost:2940/api/v1/entities/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Successfully deleted:", data);
-    })
-    .catch((error) => {
-      console.error("Error deleting todo:", error);
-    });
-}
-
-
 function finish_action(num, num2) {
   var class_li = [
     "list_shopping list_dsp_true",
@@ -114,13 +97,38 @@ function finish_action(num, num2) {
     "list_sport list_dsp_true",
     "list_music list_dsp_true",
   ];
-  console.log(".li_num_" + num2);
-  document.querySelector(".li_num_" + num2).className =
-    class_li[num] + " list_finish_state";
-  setTimeout(function () {
-    del_finish();
-  }, 500);
-}
+
+  // Assuming you have a unique ID associated with each item
+  var itemId = document.querySelector(".li_num_" + num2).getAttribute("data-id");
+
+  // Create the URL for the delete request
+  var deleteUrl = "http://localhost:2940/api/v1/entities/" + itemId;
+
+  // Send a DELETE request to delete the item
+  fetch(deleteUrl, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      // Log the response to inspect it
+      console.log("Response from server:", response);
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Successfully deleted item:", data);
+      var elementToDelete = document.querySelector(".li_num_" + num2);
+      if (elementToDelete) {
+        elementToDelete.remove();
+      }
+      del_finish();
+    })
+    .catch((error) => {
+      console.error("Error deleting item:", error);
+    });
+  }  
+
 
 function del_finish() {
   var li = document.querySelectorAll(".list_finish_state");

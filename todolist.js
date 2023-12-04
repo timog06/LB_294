@@ -60,15 +60,15 @@ function add_to_list(action, title, description, date) {
 
 function add_from_form() {
   var action = document.querySelector("#action_select").value,
-      title = document.querySelector(".input_title_desc").value,
-      description = document.querySelector(".input_description").value,
-      date = document.getElementById("date_select").value;
+    title = document.querySelector(".input_title_desc").value,
+    description = document.querySelector(".input_description").value,
+    date = document.getElementById("date_select").value;
 
   saveToDo({
     action: action,
     title: title,
     description: description,
-    date: date
+    date: date,
   });
   add_to_list(action, title, description, date);
 }
@@ -77,18 +77,35 @@ function saveToDo(todo) {
   fetch("http://localhost:2940/api/v1/entities", {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify([todo])
+    body: JSON.stringify(todo),
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log("Success:", data);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
+
+function deleteTodoById(id) {
+  fetch(`http://localhost:2940/api/v1/entities/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Successfully deleted:", data);
+    })
+    .catch((error) => {
+      console.error("Error deleting todo:", error);
+    });
+}
+
 
 function finish_action(num, num2) {
   var class_li = [
@@ -137,14 +154,14 @@ function add_new() {
   }
 }
 
-//API Stuffs
-
 let loadToDos = function () {
   fetch("http://localhost:2940/api/v1/entities")
     .then((response) => response.json())
     .then((data) => {
-      data.list.forEach((todo) => {
-        add_to_list(todo.action, todo.title, todo.description, todo.date);
+      data.forEach((todoList) => {
+        todoList.forEach((todo) => {
+          add_to_list(todo.action, todo.title, todo.description, todo.date);
+        });
       });
     })
     .catch((error) => {
